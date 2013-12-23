@@ -56,7 +56,7 @@ public class EventsHandler implements Listener {
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent e) {
         debug("command event");
-        if (LOG_COMMANDS && ((main.permissions && !e.getPlayer().hasPermission("superlogger.bypass.command")) || !main.permissions)) {
+        if (!isFiltered(e.getMessage()) && LOG_COMMANDS && ((main.permissions && !e.getPlayer().hasPermission("superlogger.bypass.command")) || !main.permissions)) {
             debug("logging commands");
             String command = e.getMessage().split(" ")[0].replaceFirst("/", "");
             if(plugin.getServer().getPluginCommand(command) == null && !plugin.getConfig().getBoolean("check-commands")){
